@@ -6,7 +6,7 @@ variable "tags" {
   default     = { }
 }
 
-variable "key_name" {
+variable "s3_key_name" {
     description = "The name of the folder in which to store the remote state"
     default = {}
 }
