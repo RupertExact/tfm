@@ -69,8 +69,9 @@ variable "chefAutoFqdn" {
 variable "chefServerEndpoint" {
   default  = "https://chef.exactonline.io"
 }
+
 variable "dataToken" {
-  description "Chef Automate data token"
+  description = "Chef Automate data token"
 }
 
 
