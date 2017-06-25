@@ -40,6 +40,40 @@ variable "enable_monitoring" {
   default = true
 }
 
+variable "root_vol_size" {
+  description = "EBS root block volume size"
+  default = 50
+}
+
+variable "svr_type" {
+  description = "Server type for chef provisioning - CS, DC, WS, IS, IW, SV, NI, SF, SI, etc."
+}
+
+variable "chef_role" {  
+  description = "Chef role e.g. web-ws"
+}
+
+variable "chef_env" { 
+  description = "Chef environment e.g. dev, prod"
+}
+
+variable "chefClientVer" {
+  description = "Chef Client version"
+}
+variable "chefOrg" {
+  default = "exactonline"
+}
+variable "chefAutoFqdn" {
+  default = "automate.exactonline.io"
+}
+variable "chefServerEndpoint" {
+  default  = "https://chef.exactonline.io"
+}
+variable "dataToken" {
+  description "Chef Automate data token"
+}
+
+
 // Variables for providers used in this module
 #variable "aws_access_key" {}
 #variable "aws_secret_key" {}
