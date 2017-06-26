@@ -31,9 +31,7 @@ variable "number_of_instances" {
 #}
 
 variable "tags" {
-  default = {
-    created_by = "terraform"
- }
+  default = { }
 }
 
 variable "enable_monitoring" {

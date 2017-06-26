@@ -13,9 +13,9 @@ resource "aws_instance" "ec2_instance" {
     instance_type = "${var.instance_type}"
     monitoring = "${var.enable_monitoring}"
     user_data = "${element(data.template_file.bootstrap.*.rendered, count.index)}"
-    #private_ip = "${var.private_ip}"
-    #vpc_security_group_ids = "${var.vpc_security_group_ids}"
-    #iam_instance_profile = "${var.iam_instance_profile}"
+    private_ip = "${var.private_ip}"
+    vpc_security_group_ids = "${var.vpc_security_group_ids}"
+    iam_instance_profile = "${var.iam_instance_profile}"
     lifecycle {
         ignore_changes = ["user_data"]
     }

@@ -100,3 +100,50 @@ resource "aws_route_table_association" "public" {
   subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
   route_table_id = "${aws_route_table.public.id}"
 }
+
+# Declare the data source
+data "aws_vpc_endpoint_service" "s3" {
+  service = "s3"
+}
+
+data "aws_route_table" "all" {
+  vpc_id = "${aws_vpc.vpc.id}"  
+}
+
+# Create a VPC endpoint
+resource "aws_vpc_endpoint" "s3_endpoint" {
+  vpc_id = "${aws_vpc.vpc.id}"  
+  service_name = "${data.aws_vpc_endpoint_service.s3.service_name}"
+  route_table_ids  = [
+      "${data.aws_route_table.all.id}"
+      
+      ]
+}
+#"${aws_route_table.public.id}"
+
+resource "aws_default_security_group" "default_sg" {
+  vpc_id = "${aws_vpc.vpc.id}"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["${var.cidr}"]
+  }
+
+  ingress {
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = "${merge(var.tags, map("Name", format("%s", var.name,"-sg-default")))}"
+  
+}
