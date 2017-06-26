@@ -8,6 +8,7 @@ variable "tags" {
 // Module specific variables
 variable "security_group_name" {
   description = "The name for the security group"
+  default = {}
 }
 
 variable "vpc_id" {
