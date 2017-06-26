@@ -28,7 +28,7 @@ resource "aws_instance" "ec2_instance" {
         template = "${file("./files/userdata.ps1")}"
 
             vars {
-                newName            = "${upper(var.svr_type)}${upper(var.environment)}${format("%02d", count.index+01)}"
+                newName            = "${upper(var.svr_type)}-${upper(var.environment)}${format("%02d", count.index+01)}"
                 svr_type           = "${var.svr_type}"
                 chefRole           = "${var.chef_role}"
                 chefEnvironment    = "${var.chef_env}"
@@ -45,6 +45,6 @@ resource "aws_instance" "ec2_instance" {
         // Takes the instance_name input variable and adds
         //  the count.index to the name., e.g.
         //  "example-host-web-1"
-        Name = "${var.instance_name}-${count.index}"
+        Name = "${lower(var.svr_type)}-${lower(var.environment)}${format("%02d", count.index+01)}"
     }
 }

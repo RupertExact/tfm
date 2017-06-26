@@ -1,4 +1,4 @@
-variable "name" {}
+#variable "name" {}
 variable "environment" {}
 variable "tags" {
   description = "A map of tags to add to all resources"
@@ -7,7 +7,7 @@ variable "tags" {
 
 // Module specific variables
 
-variable "instance_name" {
+variable "key_name" {
   description = "Used to populate the Name tag. This is done in main.tf"
 }
 
@@ -26,9 +26,9 @@ variable "number_of_instances" {
   default = 1
 }
 
-variable "user_data" {
-  description = "The path to a file with user_data for the instances"
-}
+#variable "user_data" {
+#  description = "The path to a file with user_data for the instances"
+#}
 
 variable "tags" {
   default = {
@@ -74,6 +74,9 @@ variable "dataToken" {
   description = "Chef Automate data token"
 }
 
+variable "iam_instance_profile" {}
+variable "vpc_security_group_ids" {}
+variable "private_ip" {}
 
 // Variables for providers used in this module
 // variable "aws_access_key" {}
