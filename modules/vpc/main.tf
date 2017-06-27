@@ -13,7 +13,7 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_route_table" "public" {
   vpc_id           = "${aws_vpc.vpc.id}"
   propagating_vgws = ["${var.public_propagating_vgws}"]
-  tags             = "${merge(var.tags, map("Name", format("%s-rt-public", var.name)))}"
+  tags             = "${merge(var.tags, map("Name", format("%s-rt-pub", var.name)))}"
 }
 
 resource "aws_route" "public_internet_gateway" {
@@ -33,7 +33,7 @@ resource "aws_route_table" "private" {
   vpc_id           = "${aws_vpc.vpc.id}"
   propagating_vgws = ["${var.private_propagating_vgws}"]
   count            = "${length(var.azs)}"
-  tags             = "${merge(var.tags, map("Name", format("%s-rt-private-%s", var.name, element(var.azs, count.index))))}"
+  tags             = "${merge(var.tags, map("Name", format("%s-rt-prv-%s", var.name, element(var.azs, count.index))))}"
 }
 
 resource "aws_subnet" "private" {
@@ -41,7 +41,7 @@ resource "aws_subnet" "private" {
   cidr_block        = "${var.private_subnets[count.index]}"
   availability_zone = "${element(var.azs, count.index)}"
   count             = "${length(var.private_subnets)}"
-  tags              = "${merge(var.tags, map("Name", format("%s-subnet-private-%s", var.name, element(var.azs, count.index))), map("Tier", "private"))}"
+  tags              = "${merge(var.tags, map("Name", format("%s-sub-prv-%s", var.name, element(var.azs, count.index))), map("Tier", "private"))}"
 }
 
 resource "aws_subnet" "database" {
@@ -49,14 +49,14 @@ resource "aws_subnet" "database" {
   cidr_block        = "${var.database_subnets[count.index]}"
   availability_zone = "${element(var.azs, count.index)}"
   count             = "${length(var.database_subnets)}"
-  tags              = "${merge(var.tags, map("Name", format("%s-database-subnet-%s", var.name, element(var.azs, count.index))), map("Tier", "database"))}"
+  tags              = "${merge(var.tags, map("Name", format("%s-db-sub-%s", var.name, element(var.azs, count.index))), map("Tier", "database"))}"
 }
 
 resource "aws_db_subnet_group" "database" {
   name        = "${var.name}-rds-subnet-group"
   description = "Database subnet groups for ${var.name}"
   subnet_ids  = ["${aws_subnet.database.*.id}"]
-  tags        = "${merge(var.tags, map("Name", format("%s-database-subnet-group", var.name)))}"
+  tags        = "${merge(var.tags, map("Name", format("%s-db-sub-group", var.name)))}"
   count       = "${length(var.database_subnets) > 0 ? 1 : 0}"
 }
 
@@ -65,7 +65,7 @@ resource "aws_subnet" "public" {
   cidr_block        = "${var.public_subnets[count.index]}"
   availability_zone = "${element(var.azs, count.index)}"
   count             = "${length(var.public_subnets)}"
-  tags              = "${merge(var.tags, map("Name", format("%s-subnet-public-%s", var.name, element(var.azs, count.index))), map("Tier", "public"))}"
+  tags              = "${merge(var.tags, map("Name", format("%s-sub-pub-%s", var.name, element(var.azs, count.index))), map("Tier", "public"))}"
 
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
 }
