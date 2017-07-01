@@ -1,6 +1,6 @@
 resource "aws_vpc_dhcp_options" "dhcp_options" {
     domain_name = "${var.domain_name}"
-    domain_name_servers = "${var.domain_name_servers}"
+    domain_name_servers = ["${var.domain_name_servers}"]
     #ntp_servers = ["127.0.0.1"]
     #netbios_name_servers = ["127.0.0.1"]
     #netbios_node_type = 2
