@@ -106,16 +106,18 @@ data "aws_vpc_endpoint_service" "s3" {
   service = "s3"
 }
 
-data "aws_route_table" "all" {
-  vpc_id = "${aws_vpc.vpc.id}"  
-}
+#data "aws_route_table" "all" {
+#  vpc_id = "${aws_vpc.vpc.id}"  
+#}
 
 # Create a VPC endpoint
 resource "aws_vpc_endpoint" "s3_endpoint" {
   vpc_id = "${aws_vpc.vpc.id}"  
   service_name = "${data.aws_vpc_endpoint_service.s3.service_name}"
   route_table_ids  = [
-      "${data.aws_route_table.all.id}"
+      #"${data.aws_route_table.all.id}"
+      "${aws_route_table.private.*.id}",
+      "${aws_route_table.public.*.id}"
       
       ]
 }
@@ -144,6 +146,7 @@ resource "aws_default_security_group" "default_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = "${merge(var.tags, map("Name", format("%s", var.name,"-sg-default")))}"
+  tags = "${merge(var.tags, map("Name", format("%s", var.name)))}"
   
 }
+
