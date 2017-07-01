@@ -4,6 +4,7 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   default     = { }
 }
+variable "svr_name_prefix" {}
 
 // Module specific variables
 
@@ -14,6 +15,7 @@ variable "key_name" {
 variable "instance_type" {}
 
 variable "subnet_id" {
+  type = "list"
   description = "The VPC subnet the instance(s) will go in"
 }
 
@@ -30,14 +32,16 @@ variable "number_of_instances" {
 #  description = "The path to a file with user_data for the instances"
 #}
 
-variable "tags" {
-  default = { }
-}
-
 variable "enable_monitoring" {
   default = true
 }
 
+variable "root_vol_type" {
+  description = "Volume type - gp2, io1, standard"
+}
+variable "root_vol_iops" {
+  description = "Specify IOPS for io1 volumes. For gp2 disks IOPS = 3x volume size"
+}
 variable "root_vol_size" {
   description = "EBS root block volume size"
   default = 50
@@ -73,10 +77,14 @@ variable "dataToken" {
 }
 
 variable "iam_instance_profile" {}
-variable "vpc_security_group_ids" {}
+variable "security_group_ids" {
+  type = "list"
+}
 variable "private_ip" {}
 
 // Variables for providers used in this module
 // variable "aws_access_key" {}
 // variable "aws_secret_key" {}
 variable "aws_region" {}
+
+variable "user_data_file" {}
