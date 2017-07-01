@@ -3,11 +3,13 @@ variable "name" {}
 variable "cidr" {}
 
 variable "public_subnets" {
+  type = "list"
   description = "A list of public subnets inside the VPC."
   default     = []
 }
 
 variable "private_subnets" {
+  type = "list"
   description = "A list of private subnets inside the VPC."
   default     = []
 }
