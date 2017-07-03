@@ -1,5 +1,5 @@
 // Security Group Resource for Module
-resource "aws_security_group" "vault_security_group" {
+resource "aws_security_group" "main_security_group" {
   name        = "${var.name}"
   description = "Security Group ${var.name}"
   vpc_id      = "${var.vpc_id}"
