@@ -100,3 +100,6 @@ variable "subnets" {
 variable "vpc_id" {
   description = "VPC id where the ALB and other resources will be deployed."
 }
+
+variable source_cidr_block_http {}
+variable source_cidr_block_https {}

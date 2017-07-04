@@ -17,3 +17,7 @@ output "target_group_arn" {
 output "principle_account_id" {
   value = "${lookup(var.principle_account_id, var.aws_region)}"
 }
+
+output "sg_alb_id" {
+  value = "${aws_security_group.main_security_group.id}"
+}
