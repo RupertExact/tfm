@@ -41,15 +41,14 @@ data "template_file" "bootstrap" {
         template = "${file(var.user_data_file)}"
 
             vars {
-                newName             = "${var.svr_name_prefix}${upper(var.environment)}-${upper(var.svr_type)}${format("%02d", count.index+01)}"
-                svr_type            = "${var.svr_type}"
-                chef_role           = "${var.chef_role}"
-                chef_env            = "${var.chef_env}"
-                chef_client_ver     = "${var.chef_client_ver}"
-                chef_org            = "${var.chef_org}"
-                chef_auto_fqdn      = "${var.chef_auto_fqdn}"
-                chef_server_endpoint= "${var.chef_server_endpoint}"
-                data_token          = "${var.data_token}"
-                chef_backend_ver    = "${var.chef_backend_ver}"  
+                svr_count           = "${format("%02d", count.index+01)}"                
+                chef_server_ver     = "${var.chef_server_ver}"
+                subnets             = "${var.subnets}"
+                #pub_subnets         = ["${var.pub_subnets}"]
+                #prv_subnets         = "${var.prv_subnets}"
+                environment         = "${var.environment}"
+                aws_region          = "${var.aws_region}"
             }
     }
+
+   

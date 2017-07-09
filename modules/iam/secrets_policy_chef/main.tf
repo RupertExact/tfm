@@ -1,33 +1,26 @@
-resource "aws_iam_policy" "secrets_access" {
+resource "aws_iam_policy" "main" {
   name = "${var.name}.secrets_access"
   path        = "/"
   description = "Policy allows access to secure secrets stored in SSM Parameters"
 
-  policy = "${data.aws_iam_policy_document.secrets_access_data.json}"
+  policy = "${data.aws_iam_policy_document.data.json}"
 }
 
-data "aws_iam_policy_document" "secrets_access_data" {
+data "aws_iam_policy_document" "data" {
     statement {
         effect      = "Allow"
         actions     = [ "ssm:DescribeParameters", ]
         resources   = [ "*", ]
     }
-
     statement {
         effect      = "Allow"
-        actions     = [ "ssm:GetParameters", ]
-        resources   = [ "arn:aws:ssm:${var.aws_region}:${var.aws_acc_id}:parameter/${var.environment}/${var.secrets_suffix}*", ]
-    }
-
-    statement {
-        effect      = "Allow"
-        actions     = [ "ssm:GetParameters", ]
+        actions     = [ "ssm:*"]
         resources   = [ "arn:aws:ssm:${var.aws_region}:${var.aws_acc_id}:parameter/${var.environment}/chef/*", ]
     }
 
     statement {
         effect      = "Allow"
-        actions     = [ "ssm:GetParameters", ]
+        actions     = [ "ssm:*", ]
         resources   = [ "arn:aws:ssm:${var.aws_region}:${var.aws_acc_id}:parameter/chef/*", ]
     }
 
@@ -37,22 +30,6 @@ data "aws_iam_policy_document" "secrets_access_data" {
         resources   = [ "arn:aws:kms:${var.aws_region}:${var.aws_acc_id}:alias/aws/ssm", ]
         
     }
-    statement {
-        effect      = "Allow"
-        actions     = [ 
-            "cloudwatch:PutMetricData",
-            "ds:CreateComputer",
-            "ds:DescribeDirectories",
-            "ec2:DescribeInstanceStatus",
-            "logs:*",
-            "ssm:*",
-            "ec2messages:*", 
-        ]
-        resources   = [ "*", ]
-        
-    }
-    
-
 }
 
 # use the following in the decrypt statement when using a Custom KMS key

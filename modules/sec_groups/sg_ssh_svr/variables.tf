@@ -15,6 +15,7 @@ variable "vpc_id" {
   description = "The VPC this security group will go in"
 }
 
-variable "source_cidr_block_rdp" {
+variable "source_cidr_block_ssh" {
+  type = "list"
   description = "The source CIDR block to allow traffic from"
 }

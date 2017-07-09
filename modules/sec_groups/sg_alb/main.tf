@@ -13,17 +13,6 @@ resource "aws_security_group" "main_security_group" {
   }
 }
 
-// allows traffic for TCP 22 (SSH)
-resource "aws_security_group_rule" "allow_ssh" {
-  type            = "ingress"
-  from_port       = 22
-  to_port         = 22
-  protocol        = "tcp"
-  cidr_blocks     = ["${var.source_cidr_block_ssh}"]
-  #prefix_list_ids = ["pl-12c4e678"]  
-  security_group_id = "${aws_security_group.main_security_group.id}"
-  #source_security_group_id = ""
-}
 // allows traffic for TCP 80 (HTTP) - should be load balancer only
 resource "aws_security_group_rule" "allow_http" {
   type            = "ingress"

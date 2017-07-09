@@ -2,7 +2,7 @@
 
 # TODO:
 # support not logging
-
+/*
 data "template_file" "bucket_policy" {
   template = "${file("${path.module}/bucket_policy.json")}"
 
@@ -13,21 +13,21 @@ data "template_file" "bucket_policy" {
     principle_account_id = "${lookup(var.principle_account_id, var.aws_region)}"
   }
 }
-
+*/
 resource "aws_alb" "main" {
   name            = "${var.alb_name}"
   subnets         = ["${var.subnets}"]
   security_groups = ["${var.alb_security_groups}"]
   internal        = "${var.alb_is_internal}"
-
+/*
   access_logs {
     bucket = "${var.log_bucket}"
     prefix = "${var.log_prefix}"
   }
-
+*/
   tags = "${merge(var.tags, map("Name", format("%s", var.alb_name)))}"
 }
-
+/*
 resource "aws_s3_bucket" "log_bucket" {
   bucket        = "${var.log_bucket}"
   policy        = "${data.template_file.bucket_policy.rendered}"
@@ -35,6 +35,7 @@ resource "aws_s3_bucket" "log_bucket" {
 
   tags = "${merge(var.tags, map("Name", format("%s", var.log_bucket)))}"
 }
+*/
 
 resource "aws_alb_target_group" "target_group" {
   name     = "${var.alb_name}-tg"

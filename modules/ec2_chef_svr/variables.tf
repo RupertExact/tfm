@@ -46,11 +46,26 @@ variable "root_vol_size" {
   description = "EBS root block volume size"
   default = 50
 }
+variable "subnets" {
+  #type = "list"
+  description = "VPC CIDR"
+}
+variable "pub_subnets" {
+  type = "list"
+  description = "Delimited list of subnets containing Chef FE or BE servers"
+}
+variable "prv_subnets" {
+  type = "list"
+  description = "Delimited list of subnets containing Chef FE or BE servers"
+}
+variable "chef_server_ver" {
+  description = "Chef Server version"
+}
 
 variable "svr_type" {
   description = "Server type for chef provisioning - CS, DC, WS, IS, IW, SV, NI, SF, SI, etc."
 }
-
+/*
 variable "chef_role" {  
   description = "Chef role e.g. web-ws"
 }
@@ -62,9 +77,7 @@ variable "chef_env" {
 variable "chef_client_ver" {
   description = "Chef Client version"
 }
-variable "chef_backend_ver" {
-  description = "Chef Backend Server version"
-}
+
 variable "chef_org" {
   default = "exactonline"
 }
@@ -78,7 +91,7 @@ variable "chef_server_endpoint" {
 variable "data_token" {
   description = "Chef Automate data token"
 }
-
+*/
 variable "iam_instance_profile" {}
 variable "security_group_ids" {
   type = "list"

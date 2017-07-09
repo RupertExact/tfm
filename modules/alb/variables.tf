@@ -1,4 +1,4 @@
-variable "name" {}
+#variable "name" {}
 #variable "environment" {}
 variable "tags" {
   description = "A map of tags to add to all resources"
@@ -100,6 +100,3 @@ variable "subnets" {
 variable "vpc_id" {
   description = "VPC id where the ALB and other resources will be deployed."
 }
-
-variable source_cidr_block_http {}
-variable source_cidr_block_https {}

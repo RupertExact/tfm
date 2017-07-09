@@ -5,18 +5,22 @@ resource "aws_security_group" "main_security_group" {
   vpc_id      = "${var.vpc_id}"
   tags = "${merge(var.tags, map("Name", format("%s", var.name)))}"
 
-  // allows traffic for TCP 22 (SSH)
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["${var.source_cidr_block_ssh}"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+// allows traffic for TCP 22 (SSH)
+resource "aws_security_group_rule" "allow_ssh" {
+  type            = "ingress"
+  from_port       = 22
+  to_port         = 22
+  protocol        = "tcp"
+  cidr_blocks     = ["${var.source_cidr_block_ssh}"]
+  #prefix_list_ids = ["pl-12c4e678"]  
+  security_group_id = "${aws_security_group.main_security_group.id}"
+  #source_security_group_id = ""
 }
