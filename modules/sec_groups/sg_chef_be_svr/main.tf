@@ -16,6 +16,18 @@ resource "aws_security_group" "main_security_group" {
 // Rules for Chef Backend Servers
 
 // allows elasticsearch traffic from Chef FE servers and between Chef BE servers
+resource "aws_security_group_rule" "allow_all_cbe" {
+  type            = "ingress"
+  from_port       = 0
+  to_port         = 0
+  protocol        = -1
+  #cidr_blocks     = ["${var.source_cidr_block_els}"]
+  #prefix_list_ids = ["pl-12c4e678"]  
+  security_group_id = "${aws_security_group.main_security_group.id}"
+  source_security_group_id = "${aws_security_group.main_security_group.id}"
+}
+/*
+// allows elasticsearch traffic from Chef FE servers and between Chef BE servers
 resource "aws_security_group_rule" "allow_els_cbe" {
   type            = "ingress"
   from_port       = 9200
@@ -70,7 +82,7 @@ resource "aws_security_group_rule" "allow_ssh_cbe" {
   security_group_id = "${aws_security_group.main_security_group.id}"
   source_security_group_id = "${aws_security_group.main_security_group.id}"
 }
-
+*/
 // Rules for Chef Frontend Servers
 
 // allows elasticsearch traffic from Chef FE servers and between Chef BE servers
