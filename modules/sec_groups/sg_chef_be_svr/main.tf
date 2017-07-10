@@ -49,7 +49,7 @@ resource "aws_security_group_rule" "allow_postgresql" {
 // allows ETCD trafic from Chef FE Servers and between Chef BE servers
 resource "aws_security_group_rule" "allow_etcd" {
   type            = "ingress"
-  from_port       = 2378
+  from_port       = 2379
   to_port         = 2379
   protocol        = "tcp"
   cidr_blocks     = ["${var.source_cidr_block_etcd}"]
