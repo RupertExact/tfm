@@ -50,6 +50,7 @@ variable "subnets" {
   #type = "list"
   description = "VPC CIDR"
 }
+/*
 variable "pub_subnets" {
   type = "list"
   description = "Delimited list of subnets containing Chef FE or BE servers"
@@ -58,6 +59,7 @@ variable "prv_subnets" {
   type = "list"
   description = "Delimited list of subnets containing Chef FE or BE servers"
 }
+*/
 variable "chef_server_ver" {
   description = "Chef Server version"
 }
