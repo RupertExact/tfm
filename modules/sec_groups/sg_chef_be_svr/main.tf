@@ -58,7 +58,7 @@ resource "aws_security_group_rule" "allow_etcd" {
   #source_security_group_id = ""
 }
 // allows traffic for TCP 22 (SSH)
-resource "aws_security_group_rule" "allow_ssh" {
+resource "aws_security_group_rule" "allow_ssh_cbe" {
   type            = "ingress"
   from_port       = 22
   to_port         = 22
@@ -70,7 +70,7 @@ resource "aws_security_group_rule" "allow_ssh" {
 }
 
 // allows traffic for TCP 22 (SSH)
-resource "aws_security_group_rule" "allow_ssh" {
+resource "aws_security_group_rule" "allow_ssh_cfe" {
   type            = "ingress"
   from_port       = 22
   to_port         = 22
