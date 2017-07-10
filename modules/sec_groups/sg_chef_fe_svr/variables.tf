@@ -30,4 +30,11 @@ variable "source_cidr_block_https" {
   description = "The source CIDR block to allow traffic from. Should be ALB/ELB only"
 }
 
+variable "source_sg_ig_alb" {
+  description = "The source ALB Security Group"
+}
+
+variable "source_sg_id_ssh" {
+  description = "The source Security Group id to allow traffic from"
+}
 
