@@ -15,7 +15,7 @@ resource "aws_security_group" "main_security_group" {
 
 // Rules for Chef Backend Servers
 
-// allows elasticsearch traffic from Chef FE servers and between Chef BE servers
+// allows  traffic between Chef BE servers
 resource "aws_security_group_rule" "allow_all_cbe" {
   type            = "ingress"
   from_port       = 0

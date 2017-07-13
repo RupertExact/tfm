@@ -24,7 +24,16 @@ resource "aws_instance" "ec2_instance" {
         volume_size = "${var.root_vol_size}"        
         iops        = "${var.root_vol_iops}"
     }
-    #depends_on = "${var.depends_on}"
+    ebs_block_device {
+        # Data disk Serial # 0001 
+        device_name = "xvdb"
+        volume_type = "gp2"
+        encrypted = true
+        delete_on_termination = true
+        volume_size = "30"
+    }
+    
+    
     tags {
         // created_by = "${lookup(var.tags,"created_by")}"
         // Takes the instance_name input variable and adds
@@ -41,14 +50,16 @@ data "template_file" "bootstrap" {
         template = "${file(var.user_data_file)}"
 
             vars {
-                svr_count           = "${format("%02d", count.index+01)}"                
-                chef_server_ver     = "${var.chef_server_ver}"
-                subnets             = "${var.subnets}"
-                #pub_subnets         = ["${var.pub_subnets}"]
-                #prv_subnets         = "${var.prv_subnets}"
-                environment         = "${var.environment}"
-                aws_region          = "${var.aws_region}"
+                #newName             = "${var.svr_name_prefix}${upper(var.environment)}-${upper(var.svr_type)}${format("%02d", count.index+01)}"
+                newName             = "${upper(var.environment)}${upper(var.svr_type)}${upper(format("%02d", count.index+01))}"
+                svr_type            = "${var.svr_type}"
+                chef_role           = "${var.chef_role}"
+                chef_env            = "${var.chef_env}"
+                chef_client_ver     = "${var.chef_client_ver}"
+                chef_org            = "${var.chef_org}"
+                chef_auto_fqdn      = "${var.chef_auto_fqdn}"
+                chef_server_endpoint= "${var.chef_server_endpoint}"
+                data_token          = "${var.data_token}"
+                #chef_backend_ver    = "${var.chef_backend_ver}"  
             }
     }
-
-   
