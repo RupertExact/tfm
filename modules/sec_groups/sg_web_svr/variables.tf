@@ -15,7 +15,15 @@ variable "vpc_id" {
   description = "The VPC this security group will go in"
 }
 
-variable "source_cidr_block_rdp" {
-  type = "list"
+variable "source_sg_id_rdp" {
+  description = "The source CIDR block to allow traffic from"
+}
+variable "source_sg_id_winrm" {
+  description = "The source CIDR block to allow traffic from"
+}
+variable "source_sg_id_http" {
+  description = "The source CIDR block to allow traffic from"
+}
+variable "source_sg_id_https" {
   description = "The source CIDR block to allow traffic from"
 }

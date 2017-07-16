@@ -73,7 +73,22 @@ resource "aws_instance" "ec2_instance" {
     delete_on_termination = true
     volume_size = "20"
     }
-    
+    ebs_block_device {
+    # Temp disk Serial # 0006 <<<<<<<<<<<<<< In larger instances this would be needed as TEMP sits on the ephemeral disks
+    device_name = "xvdh"
+    volume_type = "gp2"
+    encrypted = true
+    delete_on_termination = true
+    volume_size = "100"
+    }
+    ebs_block_device {
+    # Temp disk Serial # 0006 <<<<<<<<<<<<<< In larger instances this would be needed as TEMP sits on the ephemeral disks
+    device_name = "xvdi"
+    volume_type = "gp2"
+    encrypted = true
+    delete_on_termination = true
+    volume_size = "100"
+    }
     
     tags {
         // created_by = "${lookup(var.tags,"created_by")}"

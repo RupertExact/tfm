@@ -59,7 +59,7 @@ resource "aws_security_group_rule" "allow_dbs_csh" {
   security_group_id = "${aws_security_group.main_security_group.id}"
   source_security_group_id = "${var.source_sg_id_csh}"
 }
-/*
+
 // allows traffic for TCP 1433 (RDP)
 resource "aws_security_group_rule" "allow_dbs_web" {
   type            = "ingress"
@@ -71,4 +71,3 @@ resource "aws_security_group_rule" "allow_dbs_web" {
   security_group_id = "${aws_security_group.main_security_group.id}"
   source_security_group_id = "${var.source_sg_id_web}"
 }
-*/

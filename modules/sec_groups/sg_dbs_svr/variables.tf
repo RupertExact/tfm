@@ -26,8 +26,7 @@ variable "source_sg_id_csh" {
 variable "source_sg_id_svc" {
   description = "The source CIDR block to allow traffic from"
 }
-/*
+
 variable "source_sg_id_web" {
   description = "The source CIDR block to allow traffic from"
 }
-*/
