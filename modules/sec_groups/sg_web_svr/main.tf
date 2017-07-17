@@ -34,7 +34,7 @@ resource "aws_security_group_rule" "allow_https_web" {
   #cidr_blocks     = ["0.0.0.0/0"]
   #prefix_list_ids = ["pl-12c4e678"]  
   security_group_id = "${aws_security_group.main_security_group.id}"
-  source_security_group_id = "${var.source_sg_id_http}"
+  source_security_group_id = "${var.source_sg_id_https}"
 }
 
 // allows traffic for TCP 80 (HTTP)
@@ -46,7 +46,7 @@ resource "aws_security_group_rule" "allow_http_web" {
   #cidr_blocks     = ["0.0.0.0/0"]
   #prefix_list_ids = ["pl-12c4e678"]  
   security_group_id = "${aws_security_group.main_security_group.id}"
-  source_security_group_id = "${var.source_sg_id_https}"
+  source_security_group_id = "${var.source_sg_id_http}"
 }
 // allow winrm from XLD Servers
 resource "aws_security_group_rule" "allow_winrm_web" {

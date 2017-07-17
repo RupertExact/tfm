@@ -44,3 +44,5 @@ variable "health_check_type" {}
 variable "target_group_arns" {default = []}
 variable "vpc_zone_identifier" {default = []}
 variable "availability_zones" {default = []}
+variable "default_cooldown" {default = ""}
+variable "alb_target_group_arn" {default = ""}

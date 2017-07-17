@@ -60,7 +60,10 @@ variable "health_check_path" {
   description = "The URL the ELB should use for health checks. e.g. /health"
   default     = "/"
 }
-
+variable "matcher" {
+  description = "HTTP Codes to check for"
+  default = ""
+}
 variable "log_bucket" {
   description = "S3 bucket for storing ALB access logs."
 }
@@ -100,3 +103,14 @@ variable "subnets" {
 variable "vpc_id" {
   description = "VPC id where the ALB and other resources will be deployed."
 }
+
+/*
+variable "target_group_port" {
+  default = ""
+}
+
+variable "target_id" {
+  default = ""
+}
+
+*/

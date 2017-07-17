@@ -51,6 +51,7 @@ resource "aws_alb_target_group" "target_group" {
     unhealthy_threshold = 3
     timeout             = 5
     protocol            = "${var.backend_protocol}"
+    matcher             = "${var.matcher}"
   }
 
   stickiness {
@@ -68,7 +69,7 @@ resource "aws_alb_listener" "front_end_http" {
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.target_group.id}"
+    target_group_arn = "${aws_alb_target_group.target_group.arn}"
     type             = "forward"
   }
 
@@ -83,9 +84,10 @@ resource "aws_alb_listener" "front_end_https" {
   ssl_policy        = "ELBSecurityPolicy-2015-05"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.target_group.id}"
+    target_group_arn = "${aws_alb_target_group.target_group.arn}"
     type             = "forward"
   }
 
   count = "${trimspace(element(split(",", var.alb_protocols), 1)) == "HTTPS" || trimspace(element(split(",", var.alb_protocols), 2)) == "HTTPS" ? 1 : 0}"
 }
+

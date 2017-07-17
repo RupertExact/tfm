@@ -26,6 +26,7 @@ resource "aws_autoscaling_group" "main_asg" {
   min_size                  = "${var.asg_min_size}"
   health_check_grace_period = "${var.health_check_grace_period}"
   health_check_type         = "${var.health_check_type}"
+  default_cooldown          = "${var.default_cooldown}"
   desired_capacity          = "${var.asg_max_size}"
   force_delete              = true
   #placement_group           = "${aws_placement_group.test.id}"
@@ -39,20 +40,23 @@ resource "aws_autoscaling_group" "main_asg" {
       {
           key                   = "Name"
           value                 = "${var.name}"
-          propogate_at_launch   = true
+          propagate_at_launch   = true
       },
       {
           key                   = "Terraform"
           value                 = "true"
-          propogate_at_launch   = true
+          propagate_at_launch   = true
       },
       {
           key                   = "Environment"
-          value                 = "${var.name}"
-          propogate_at_launch   = "${var.environment}"
+          value                 = "${var.environment}"
+          propagate_at_launch   = true
       }
   ]
 
-
 }
 
+resource "aws_autoscaling_attachment" "asg_attachment_main" {
+  autoscaling_group_name = "${aws_autoscaling_group.main_asg.id}"
+  alb_target_group_arn   = "${var.alb_target_group_arn}"
+}
