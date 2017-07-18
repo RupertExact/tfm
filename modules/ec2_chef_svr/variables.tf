@@ -98,7 +98,7 @@ variable "iam_instance_profile" {}
 variable "security_group_ids" {
   type = "list"
 }
-variable "private_ip" {}
+variable "private_ip" {default = []}
 
 // Variables for providers used in this module
 // variable "aws_access_key" {}

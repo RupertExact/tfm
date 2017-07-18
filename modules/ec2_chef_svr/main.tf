@@ -13,7 +13,7 @@ resource "aws_instance" "ec2_instance" {
     instance_type = "${var.instance_type}"
     monitoring = "${var.enable_monitoring}"
     user_data = "${element(data.template_file.bootstrap.*.rendered, count.index)}"
-    private_ip = "${var.private_ip}"
+    private_ip = "${element(var.private_ip, count.index)}"
     vpc_security_group_ids = ["${var.security_group_ids}"]
     iam_instance_profile = "${var.iam_instance_profile}"
     lifecycle {
