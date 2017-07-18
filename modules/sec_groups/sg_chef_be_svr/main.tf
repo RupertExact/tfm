@@ -85,6 +85,17 @@ resource "aws_security_group_rule" "allow_ssh_cbe" {
 */
 // Rules for Chef Frontend Servers
 
+// allows icmp traffic from Chef FE servers and between Chef BE servers
+resource "aws_security_group_rule" "allow_els_cfe" {
+  type            = "ingress"
+  from_port       = -1
+  to_port         = -1
+  protocol        = "icmp"
+  #cidr_blocks     = ["${var.source_cidr_block_els}"]
+  #prefix_list_ids = ["pl-12c4e678"]  
+  security_group_id = "${aws_security_group.main_security_group.id}"
+  source_security_group_id = "${var.source_sg_id_cfe}"
+}
 // allows elasticsearch traffic from Chef FE servers and between Chef BE servers
 resource "aws_security_group_rule" "allow_els_cfe" {
   type            = "ingress"
