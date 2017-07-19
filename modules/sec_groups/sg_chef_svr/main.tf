@@ -13,7 +13,7 @@ resource "aws_security_group" "main_security_group" {
   }
 }
 
-// allows all traffic between CFE
+// allows all traffic between Chef Server & Chef Automate
 resource "aws_security_group_rule" "allow_all" {
   type            = "ingress"
   from_port       = 0
@@ -22,7 +22,7 @@ resource "aws_security_group_rule" "allow_all" {
   #cidr_blocks     = ["${var.source_cidr_block_ssh}"]
   #prefix_list_ids = ["pl-12c4e678"]  
   security_group_id = "${aws_security_group.main_security_group.id}"
-  source_security_group_id = "${aws_security_group.main_security_group.id}"
+  source_security_group_id = "${var.source_sg_id_chef_all}"
 }
 
 
@@ -38,19 +38,8 @@ resource "aws_security_group_rule" "allow_ssh_ssh" {
   source_security_group_id = "${var.source_sg_id_ssh}"
 }
 
-// allows traffic for TCP 80 (HTTP) - should be load balancer only
-resource "aws_security_group_rule" "allow_http_alb" {
-  type            = "ingress"
-  from_port       = 80
-  to_port         = 80
-  protocol        = "tcp"
-  #cidr_blocks     = ["${var.source_cidr_block_http}"]
-  #prefix_list_ids = ["pl-12c4e678"]  
-  security_group_id = "${aws_security_group.main_security_group.id}"
-  source_security_group_id = "${var.source_sg_ig_alb}"
-}
 // allows traffic for TCP 443 (HTTPS) - should be load balancer only
-resource "aws_security_group_rule" "allow_https_alb" {
+resource "aws_security_group_rule" "allow_https" {
   type            = "ingress"
   from_port       = 443
   to_port         = 443
@@ -58,5 +47,5 @@ resource "aws_security_group_rule" "allow_https_alb" {
   #cidr_blocks     = ["${var.source_cidr_block_https}"]
   #prefix_list_ids = ["pl-12c4e678"]  
   security_group_id = "${aws_security_group.main_security_group.id}"
-  source_security_group_id = "${var.source_sg_ig_alb}"
+  source_security_group_id = "${var.source_sg_id_https}"
 }
