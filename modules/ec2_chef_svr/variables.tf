@@ -63,6 +63,9 @@ variable "prv_subnets" {
 variable "chef_server_ver" {
   description = "Chef Server version"
 }
+variable "chef_org" {
+  description = "Chef Organization name. Lower case. One word"
+}
 
 variable "svr_type" {
   description = "Server type for chef provisioning - CS, DC, WS, IS, IW, SV, NI, SF, SI, etc."
