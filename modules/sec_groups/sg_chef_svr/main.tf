@@ -24,7 +24,16 @@ resource "aws_security_group_rule" "allow_all" {
   security_group_id = "${aws_security_group.main_security_group.id}"
   source_security_group_id = "${var.source_sg_id_chef_all}"
 }
-
+resource "aws_security_group_rule" "allow_https_alb" {
+  type            = "ingress"
+  from_port       = 443
+  to_port         = 443
+  protocol        = "tcp"
+  #cidr_blocks     = ["${var.source_cidr_block_ssh}"]
+  #prefix_list_ids = ["pl-12c4e678"]  
+  security_group_id = "${aws_security_group.main_security_group.id}"
+  source_security_group_id = "${var.source_sg_id_alb}"
+}
 
 // allows traffic for TCP 22 (SSH) from SSH Server
 resource "aws_security_group_rule" "allow_ssh_ssh" {

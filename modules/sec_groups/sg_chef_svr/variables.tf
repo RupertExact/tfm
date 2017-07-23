@@ -33,3 +33,7 @@ variable "source_sg_id_https" {
 variable "source_sg_id_chef_all" {
   description = "Sec group id of Automate or Chef Server"
 }
+
+variable "source_sg_id_alb" {
+  description = "Sec group ID for the chef or automate server ALB"
+}
